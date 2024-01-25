@@ -271,6 +271,7 @@ if(ENABLE_EXAMPLES)
 endif()
 
 add_library(aom ${AOM_SOURCES} $<TARGET_OBJECTS:aom_rtcd>)
+target_include_directories(aom INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 if(BUILD_SHARED_LIBS)
   add_library(aom_static STATIC ${AOM_SOURCES} $<TARGET_OBJECTS:aom_rtcd>)
   if(NOT MSVC)
