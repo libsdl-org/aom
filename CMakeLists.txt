@@ -273,7 +273,9 @@ endif()
 add_library(aom ${AOM_SOURCES} $<TARGET_OBJECTS:aom_rtcd>)
 if(BUILD_SHARED_LIBS)
   add_library(aom_static STATIC ${AOM_SOURCES} $<TARGET_OBJECTS:aom_rtcd>)
+  if(NOT MSVC)
   set_target_properties(aom_static PROPERTIES OUTPUT_NAME aom)
+  endif()
 
   if(NOT MSVC)
     # Extract version string and set VERSION/SOVERSION for the aom target.
