@@ -194,13 +194,14 @@ endfunction()
 # Currently checks only for presence of required object formats and support for
 # the -Ox argument (multipass optimization).
 function(test_nasm)
-  execute_process(COMMAND ${AS_EXECUTABLE} -hf OUTPUT_VARIABLE nasm_helptext)
+  execute_process(COMMAND ${AS_EXECUTABLE} -hO OUTPUT_VARIABLE nasm_helptext)
 
   if(NOT "${nasm_helptext}" MATCHES "-Ox")
     message(
       FATAL_ERROR "Unsupported nasm: multipass optimization not supported.")
   endif()
 
+  execute_process(COMMAND ${AS_EXECUTABLE} -hf OUTPUT_VARIABLE nasm_helptext)
   if("${AOM_TARGET_CPU}" STREQUAL "x86")
     if("${AOM_TARGET_SYSTEM}" STREQUAL "Darwin")
       if(NOT "${nasm_helptext}" MATCHES "macho32")
