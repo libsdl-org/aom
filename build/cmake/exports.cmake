@@ -27,8 +27,7 @@ function(setup_exports_target)
 
   set(aom_sym_file "${AOM_CONFIG_DIR}/libaom.${symbol_file_ext}")
 
-  add_custom_target(
-    generate_exports
+  add_custom_command(OUTPUT "${aom_sym_file}"
     COMMAND ${CMAKE_COMMAND}
             -DAOM_ROOT="${AOM_ROOT}"
             -DAOM_CONFIG_DIR="${AOM_CONFIG_DIR}"
@@ -45,11 +44,12 @@ function(setup_exports_target)
             -P
             "${AOM_ROOT}/build/cmake/generate_exports.cmake"
     SOURCES ${AOM_EXPORTS_SOURCES}
-    DEPENDS ${AOM_EXPORTS_SOURCES} BYPRODUCTS ${aom_sym_file})
+    DEPENDS ${AOM_EXPORTS_SOURCES} "${AOM_ROOT}/build/cmake/generate_exports.cmake")
+  target_sources(aom PRIVATE ${aom_sym_file})
 
   # Make libaom depend on the exports file, and set flags to pick it up when
   # creating the dylib.
-  add_dependencies(aom generate_exports)
+#  add_dependencies(aom generate_exports)
 
   if(APPLE)
     set_property(TARGET aom

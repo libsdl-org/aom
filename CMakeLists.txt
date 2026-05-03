@@ -248,7 +248,7 @@ if(BUILD_SHARED_LIBS AND NOT MSVC)
                           "${AOM_ROOT}/build/cmake/version.cmake")
 endif()
 
-add_dependencies(aom_version aom_version_check)
+#add_dependencies(aom_version aom_version_check)
 
 # TODO(tomfinegan): Move rtcd target setup where it belongs for each rtcd
 # source.
