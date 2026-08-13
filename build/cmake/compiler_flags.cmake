@@ -156,7 +156,7 @@ function(require_c_flag c_flag update_c_flags)
   append_flag(AOM_C_FLAGS "${c_flag}")
   if(update_c_flags)
     foreach(config ${AOM_C_CONFIGS})
-      set(${config} "${${config}} ${c_flag}" CACHE STRING "" FORCE)
+      set(${config} "${${config}} ${c_flag}")  # SDL edit: don't cache CMAKE_<lang>_FLAGS_<config>: plain setting will apply it to all subdirectories
     endforeach()
   endif()
 endfunction()
