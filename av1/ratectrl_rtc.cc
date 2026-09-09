@@ -159,9 +159,6 @@ bool AV1RateControlRTC::InitRateControl(const AV1RateControlRtcConfig &rc_cfg) {
   RATE_CONTROL *const rc = &cpi_->rc;
   const int bit_depth = rc_cfg.bit_depth == 0 ? 8 : rc_cfg.bit_depth;
   if (bit_depth != 8 && bit_depth != 10 && bit_depth != 12) return false;
-#if !CONFIG_AV1_HIGHBITDEPTH
-  if (bit_depth > 8) return false;
-#endif
   cm->seq_params->profile = (bit_depth == 12) ? PROFILE_2 : PROFILE_0;
   cm->seq_params->bit_depth = static_cast<aom_bit_depth_t>(bit_depth);
   cm->show_frame = 1;

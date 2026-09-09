@@ -732,7 +732,6 @@ void RcExternMethodsInterfaceTest::TestBitDepthRateControl() {
   ASSERT_FALSE(av1_ratecontrol_rtc_update(controller_8, &rc_cfg_));
   av1_ratecontrol_rtc_destroy(controller_8);
 
-#if CONFIG_AV1_HIGHBITDEPTH
   rc_cfg_.bit_depth = 10;
   AomAV1RateControlRTC *controller_10 = av1_ratecontrol_rtc_create(&rc_cfg_);
   ASSERT_NE(controller_10, nullptr);
@@ -744,16 +743,9 @@ void RcExternMethodsInterfaceTest::TestBitDepthRateControl() {
   AomAV1RateControlRTC *controller_12 = av1_ratecontrol_rtc_create(&rc_cfg_);
   ASSERT_NE(controller_12, nullptr);
   av1_ratecontrol_rtc_destroy(controller_12);
-#else
-  rc_cfg_.bit_depth = 10;
-  ASSERT_EQ(av1_ratecontrol_rtc_create(&rc_cfg_), nullptr);
-  rc_cfg_.bit_depth = 12;
-  ASSERT_EQ(av1_ratecontrol_rtc_create(&rc_cfg_), nullptr);
-#endif
 }
 
 void RcExternMethodsInterfaceTest::TestLoopFilterLevelBitDepth() {
-#if CONFIG_AV1_HIGHBITDEPTH
   frame_params_.spatial_layer_id = 0;
   frame_params_.temporal_layer_id = 0;
   frame_params_.frame_type = kAomKeyFrame;
@@ -780,7 +772,6 @@ void RcExternMethodsInterfaceTest::TestLoopFilterLevelBitDepth() {
   // than for 8-bit at the same configuration.
   EXPECT_GT(lpf_10.filter_level[0], lpf_8.filter_level[0]);
   EXPECT_GT(lpf_10.filter_level[1], lpf_8.filter_level[1]);
-#endif  // CONFIG_AV1_HIGHBITDEPTH
 }
 
 TEST_P(RcInterfaceTest, OneLayer) { RunOneLayer(); }
